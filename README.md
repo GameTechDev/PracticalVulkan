@@ -3,9 +3,11 @@ by Pawel Lapinski
 
 Source code examples for **"*API without Secrets: The Practical Approach to Vulkan*"** series of articles available at:
 
-https://software.intel.com/en-us/articles/api-without-secrets-introduction-to-vulkan-preface
+https://software.intel.com/en-us/articles/api-without-secrets-the-practical-approach-to-vulkan-preface
 
-**"*Introduction to Vulkan*"** can be found at:
+## API withotu Secrets: Introduction to Vulkan
+
+**"*Introduction to Vulkan*"** tutorial can be found at:
 
 https://software.intel.com/en-us/articles/api-without-secrets-introduction-to-vulkan-preface
 
@@ -21,7 +23,7 @@ Vulkan drivers and other related resources can be found at https://www.khronos.o
 
 ### [01 - Frame Resources Count](./Project/Samples/01%20-%20Frame%20Resources%20Count/)
 
-#### https://software.intel.com/en-us/articles/api-without-secrets-introduction-to-vulkan-part-1
+#### https://software.intel.com/en-us/articles/api-without-secrets-the-practical-approach-to-vulkan-part-1
 
 This sample shows how the number of sets of resources, used to independently prepare frames of animation, influences performance of a Vulkan application.
 
