@@ -5,7 +5,7 @@ Source code examples for **"*API without Secrets: The Practical Approach to Vulk
 
 https://software.intel.com/en-us/articles/api-without-secrets-the-practical-approach-to-vulkan-preface
 
-## API withotu Secrets: Introduction to Vulkan
+## API without Secrets: Introduction to Vulkan
 
 **"*Introduction to Vulkan*"** tutorial can be found at:
 
