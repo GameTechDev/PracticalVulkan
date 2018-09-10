@@ -62,15 +62,15 @@ namespace ApiWithoutSecrets {
 
   void SampleCommon::AcquireImage( CurrentFrameData & current_frame, vk::RenderPass & render_pass ) {
     // Acquire swapchain image
-    vk::Result result = vk::Result::eSuccess;
-    try {
-      result = GetDevice().acquireNextImageKHR( *current_frame.Swapchain->Handle, 3000000000, *current_frame.FrameResources->ImageAvailableSemaphore, vk::Fence(), &current_frame.SwapchainImageIndex );
-    } catch( ... ) {
-      if( vk::Result::eErrorOutOfDateKHR == result ) {
-        OnWindowSizeChanged();
-      } else {
-        throw;
-      }
+    switch (GetDevice().acquireNextImageKHR( *current_frame.Swapchain->Handle, 3000000000, *current_frame.FrameResources->ImageAvailableSemaphore, vk::Fence(), &current_frame.SwapchainImageIndex )) {
+    case vk::Result::eSuccess:
+    case vk::Result::eSuboptimalKHR:
+      break;
+    case vk::Result::eErrorOutOfDateKHR:
+      OnWindowSizeChanged();
+      break;
+    default:
+      throw std::exception( "Could not acquire swapchain image!" );
     }
     // Create a framebuffer for current frame
     current_frame.FrameResources->Framebuffer = CreateFramebuffer( { *current_frame.Swapchain->ImageViews[current_frame.SwapchainImageIndex], *current_frame.FrameResources->DepthAttachment.View }, current_frame.Swapchain->Extent, render_pass );
@@ -139,23 +139,23 @@ namespace ApiWithoutSecrets {
     // Present frame
     {
       vk::Result result = vk::Result::eSuccess;
-      try {
-        vk::PresentInfoKHR present_info(
-          1,                                                            // uint32_t                     waitSemaphoreCount
-          &(*current_frame.FrameResources->FinishedRenderingSemaphore), // const VkSemaphore           *pWaitSemaphores
-          1,                                                            // uint32_t                     swapchainCount
-          &(*current_frame.Swapchain->Handle),                          // const VkSwapchainKHR        *pSwapchains
-          &current_frame.SwapchainImageIndex                            // const uint32_t              *pImageIndices
-        );
+      vk::PresentInfoKHR present_info(
+        1,                                                            // uint32_t                     waitSemaphoreCount
+        &(*current_frame.FrameResources->FinishedRenderingSemaphore), // const VkSemaphore           *pWaitSemaphores
+        1,                                                            // uint32_t                     swapchainCount
+        &(*current_frame.Swapchain->Handle),                          // const VkSwapchainKHR        *pSwapchains
+        &current_frame.SwapchainImageIndex                            // const uint32_t              *pImageIndices
+      );
 
-        result = GetPresentQueue().Handle.presentKHR( present_info );
-      } catch( ... ) {
-        if( (vk::Result::eSuboptimalKHR == result) ||
-            (vk::Result::eErrorOutOfDateKHR == result) ) {
-          OnWindowSizeChanged();
-        } else {
-          throw;
-        }
+      switch (GetPresentQueue().Handle.presentKHR( &present_info )) {
+      case vk::Result::eSuccess:
+        break;
+      case vk::Result::eSuboptimalKHR:
+      case vk::Result::eErrorOutOfDateKHR:
+        OnWindowSizeChanged();
+        break;
+      default:
+        throw std::exception( "Could not present swapchain image!" );
       }
     }
   }
