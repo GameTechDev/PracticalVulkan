@@ -323,7 +323,7 @@ namespace ApiWithoutSecrets {
     // Background texture
     {
       int width = 0, height = 0, data_size = 0;
-      std::vector<char> texture_data = Tools::GetImageData( "Data/Common/Background.png", 4, &width, &height, nullptr, &data_size );
+      std::vector<char> texture_data = Tools::GetImageData( "../Data/Common/Background.png", 4, &width, &height, nullptr, &data_size );
       // Create descriptor resources
       {
         Parameters.BackgroundTexture = SampleCommon::CreateImage( width, height, vk::Format::eR8G8B8A8Unorm, vk::ImageUsageFlagBits::eTransferDst | vk::ImageUsageFlagBits::eSampled, vk::MemoryPropertyFlagBits::eDeviceLocal, vk::ImageAspectFlagBits::eColor );
@@ -355,7 +355,7 @@ namespace ApiWithoutSecrets {
     // Sample texture
     {
       int width = 0, height = 0, data_size = 0;
-      std::vector<char> texture_data = Tools::GetImageData( "Data/" PROJECT_NUMBER_STRING "/FrameResources.png", 4, &width, &height, nullptr, &data_size );
+      std::vector<char> texture_data = Tools::GetImageData( "../Data/" PROJECT_NUMBER_STRING "/FrameResources.png", 4, &width, &height, nullptr, &data_size );
       // Create descriptor resources
       {
         Parameters.Texture = SampleCommon::CreateImage( width, height, vk::Format::eR8G8B8A8Unorm, vk::ImageUsageFlagBits::eTransferDst | vk::ImageUsageFlagBits::eSampled, vk::MemoryPropertyFlagBits::eDeviceLocal, vk::ImageAspectFlagBits::eColor );
@@ -396,8 +396,8 @@ namespace ApiWithoutSecrets {
   }
 
   void Sample::CreateGraphicsPipeline() {
-    vk::UniqueShaderModule vertex_shader_module = SampleCommon::CreateShaderModule( "Data/" PROJECT_NUMBER_STRING "/shader.vert.spv" );
-    vk::UniqueShaderModule fragment_shader_module = SampleCommon::CreateShaderModule( "Data/" PROJECT_NUMBER_STRING "/shader.frag.spv" );
+    vk::UniqueShaderModule vertex_shader_module = SampleCommon::CreateShaderModule( "../Data/" PROJECT_NUMBER_STRING "/shader.vert.spv" );
+    vk::UniqueShaderModule fragment_shader_module = SampleCommon::CreateShaderModule( "../Data/" PROJECT_NUMBER_STRING "/shader.frag.spv" );
 
     std::vector<vk::PipelineShaderStageCreateInfo> shader_stage_create_infos = {
       // Vertex shader

@@ -306,8 +306,8 @@ namespace ApiWithoutSecrets {
   }
 
   void GUI::CreateGraphicsPipeline() {
-    vk::UniqueShaderModule vertex_shader_module = Parent.CreateShaderModule( "Data/Common/gui.vert.spv" );
-    vk::UniqueShaderModule fragment_shader_module = Parent.CreateShaderModule( "Data/Common/gui.frag.spv" );
+    vk::UniqueShaderModule vertex_shader_module = Parent.CreateShaderModule( "../Data/Common/gui.vert.spv" );
+    vk::UniqueShaderModule fragment_shader_module = Parent.CreateShaderModule( "../Data/Common/gui.frag.spv" );
 
     std::vector<vk::PipelineShaderStageCreateInfo> shader_stage_create_infos = {
       // Vertex shader
